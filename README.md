@@ -1,5 +1,4 @@
-```markdown
-Simple TODO list API made in Rust.
+# Simple TODO list API made in Rust.
 
 ## Requirements
 
