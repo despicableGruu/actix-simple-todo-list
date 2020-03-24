@@ -1,13 +1,15 @@
-# actix-todo ![Build Status](https://github.com/nemesiscodex/actix-todo/workflows/tests/badge.svg)
-Simple TODO list API made in rust
+```markdown
+Simple TODO list API made in Rust.
 
 ## Requirements
+
 - Rust
 - Docker
 - docker-compose
 
 ## Usage
-```
+
+```bash
 # Copy example .env file
 cp .env.example .env
 
@@ -29,65 +31,79 @@ cargo test --features "integration"
 # Run the server (Add --release for an optimized build)
 cargo run 
 ```
-```
+
+To test the API, you can use `curl`:
+
+```bash
 curl -s http://localhost:8080/
 ```
 
-# Routes
 
-- `GET` `/` -> Status
+## Routes
 
-  **Response:**
-  ```
+### Status
+
+- **Method:** `GET`
+- **Endpoint:** `/`
+- **Response:**
+  ```json
   {
     "status": "Up"
   }
   ```
 
-- `GET` `/todos` -> Get todo lists
+### Todo Lists
 
-  **Response:**
-  ```
+- **Method:** `GET`
+- **Endpoint:** `/todos`
+- **Response:**
+  ```json
   [
     {
       "id": 1,
       "title": "Grocery list"
     },
     ...
-  [
+  ]
   ```
-- `GET` `/todos/1` -> Get single todo list
 
-  **Response:**
-  ```
+- **Method:** `GET`
+- **Endpoint:** `/todos/{id}` (e.g., `/todos/1`)
+- **Response:**
+  ```json
   {
     "id": 1,
     "title": "Grocery list"
   }
   ```
-- `POST` `/todos` -> Create todo list
 
-  **Request Header:**
+- **Method:** `POST`
+- **Endpoint:** `/todos`
+- **Request Header:**
   ```
   Content-Type: application/json
   ```
-  **Request Body:**
-  ```
+- **Request Body:**
+  ```json
   {
     "title": "List title"    
   }
   ```
-  **Response:**
-  ```
+- **Response:**
+  ```json
   {
     "id": 1,
     "title": "Grocery list"
   }
   ```
-- `GET` `/todos/1/items` -> Get items of the todo list
 
-  **Response:**
-  ```
+
+### Todo List Items
+
+- **Method:** `GET`
+- **Endpoint:** `/todos/{todo_id}/items` (e.g., `/todos/1/items`)
+- **Response:**
+  ```json
   [
     {
       "id": 1,
@@ -103,10 +119,11 @@ curl -s http://localhost:8080/
     }
   ]
   ```
-- `GET` `/todos/1/items/1` -> Get single item of the todo list
 
-  **Response:**
-  ```
+- **Method:** `GET`
+- **Endpoint:** `/todos/{todo_id}/items/{item_id}` (e.g., `/todos/1/items/1`)
+- **Response:**
+  ```json
   {
     "id": 1,
     "list_id": 1,
@@ -115,20 +132,20 @@ curl -s http://localhost:8080/
   }
   ```
 
-- `POST` `/todos/1/items` -> Create todo list item
-
-  **Request Header:**
+- **Method:** `POST`
+- **Endpoint:** `/todos/{todo_id}/items` (e.g., `/todos/1/items`)
+- **Request Header:**
   ```
   Content-Type: application/json
   ```
-  **Request Body:**
-  ```
+- **Request Body:**
+  ```json
   {
     "title": "Eggs"    
   }
   ```
-  **Response:**
-  ```
+- **Response:**
+  ```json
   {
     "id": 1,
     "list_id": 1,
@@ -136,14 +153,16 @@ curl -s http://localhost:8080/
     "checked": false
   }
   ```
-- `PUT` `/todos/1/items/1` -> Check todo
 
-  **Response:**
-  ```
+- **Method:** `PUT`
+- **Endpoint:** `/todos/{todo_id}/items/{item_id}` (e.g., `/todos/1/items/1`)
+- **Response:**
+  ```json
   {
     "result": true
   }
   ```
-  Result:
-  - `true` -> Checked
-  - `false` -> Already checked. Nothing to do.
+  **Result:**
+  - `true`: Item checked.
+  - `false`: Item was already checked. Nothing to do. 
+```
